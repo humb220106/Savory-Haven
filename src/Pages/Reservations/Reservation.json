@@ -1,0 +1,168 @@
+{
+  "restaurant": {
+    "name": "Savory Haven",
+    "contact": {
+      "phone": "(555) 123-4567",
+      "email": "reservations@savoryhaven.com",
+      "address": {
+        "street": "123 Culinary Street",
+        "city": "Downtown District",
+        "state": "City",
+        "zipCode": "12345"
+      }
+    },
+    "hours": {
+      "monday": { "open": "5:00 PM", "close": "10:00 PM" },
+      "tuesday": { "open": "5:00 PM", "close": "10:00 PM" },
+      "wednesday": { "open": "5:00 PM", "close": "10:00 PM" },
+      "thursday": { "open": "5:00 PM", "close": "10:00 PM" },
+      "friday": { "open": "5:00 PM", "close": "11:00 PM" },
+      "saturday": { "open": "5:00 PM", "close": "11:00 PM" },
+      "sunday": { "open": "4:00 PM", "close": "9:00 PM" }
+    },
+    "hoursDisplay": [
+      {
+        "days": "Monday - Thursday",
+        "hours": "5:00 PM - 10:00 PM"
+      },
+      {
+        "days": "Friday - Saturday",
+        "hours": "5:00 PM - 11:00 PM"
+      },
+      {
+        "days": "Sunday",
+        "hours": "4:00 PM - 9:00 PM"
+      }
+    ]
+  },
+  "reservation": {
+    "timeSlots": [
+      "5:00 PM",
+      "5:30 PM",
+      "6:00 PM",
+      "6:30 PM",
+      "7:00 PM",
+      "7:30 PM",
+      "8:00 PM",
+      "8:30 PM",
+      "9:00 PM",
+      "9:30 PM"
+    ],
+    "occasions": [
+      "Birthday",
+      "Anniversary",
+      "Date Night",
+      "Business Dinner",
+      "Family Gathering",
+      "Celebration",
+      "Other"
+    ],
+    "maxGuests": 12,
+    "policies": [
+      "Reservations are confirmed within 24 hours",
+      "Please arrive within 15 minutes of your reservation time",
+      "Cancellations must be made 24 hours in advance",
+      "Large parties (8+) may require a deposit",
+      "We hold tables for 15 minutes past reservation time"
+    ]
+  },
+  "services": [
+    {
+      "icon": "🍷",
+      "title": "Wine Pairing",
+      "description": "Our sommelier can recommend perfect wine pairings for your meal. Mention your preferences in special requests."
+    },
+    {
+      "icon": "🎂",
+      "title": "Special Celebrations",
+      "description": "Celebrating something special? We offer complimentary desserts for birthdays and anniversaries."
+    },
+    {
+      "icon": "👨‍🍳",
+      "title": "Chef's Table",
+      "description": "Experience our kitchen up close with our exclusive chef's table experience. Limited availability."
+    },
+    {
+      "icon": "🌿",
+      "title": "Dietary Accommodations",
+      "description": "We accommodate all dietary restrictions including vegan, gluten-free, and allergen-free options."
+    }
+  ],
+  "images": {
+    "hero": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=600&fit=crop",
+    "heroAlt": "Elegant restaurant dining room"
+  },
+  "content": {
+    "hero": {
+      "title": "Reserve Your Table",
+      "subtitle": "Book your unforgettable dining experience at Savory Haven"
+    },
+    "form": {
+      "title": "Make a Reservation",
+      "subtitle": "Please fill out the form below and we'll confirm your reservation within 24 hours.",
+      "successMessage": "Thank you! Your reservation request has been submitted. We'll confirm your booking within 24 hours."
+    },
+    "cta": {
+      "title": "Questions About Your Reservation?",
+      "description": "Our team is here to help make your dining experience perfect. Don't hesitate to reach out with any questions or special requests."
+    }
+  },
+  "formFields": {
+    "firstName": {
+      "label": "First Name",
+      "type": "text",
+      "required": true,
+      "placeholder": ""
+    },
+    "lastName": {
+      "label": "Last Name",
+      "type": "text",
+      "required": true,
+      "placeholder": ""
+    },
+    "email": {
+      "label": "Email Address",
+      "type": "email",
+      "required": true,
+      "placeholder": ""
+    },
+    "phone": {
+      "label": "Phone Number",
+      "type": "tel",
+      "required": true,
+      "placeholder": ""
+    },
+    "date": {
+      "label": "Preferred Date",
+      "type": "date",
+      "required": true,
+      "placeholder": ""
+    },
+    "time": {
+      "label": "Preferred Time",
+      "type": "select",
+      "required": true,
+      "placeholder": "Select a time"
+    },
+    "guests": {
+      "label": "Number of Guests",
+      "type": "select",
+      "required": true,
+      "placeholder": "",
+      "defaultValue": "2"
+    },
+    "occasion": {
+      "label": "Special Occasion",
+      "type": "select",
+      "required": false,
+      "placeholder": "Select an occasion"
+    },
+    "specialRequests": {
+      "label": "Special Requests or Dietary Requirements",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Please let us know about any allergies, dietary restrictions, or special requests...",
+      "rows": 4
+    }
+  }
+}

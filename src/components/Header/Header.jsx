@@ -71,14 +71,14 @@ const Header = () => {
                 className={`nav-link ${isActive("/contact") ? "active" : ""}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                 Reservations
+                Contact
               </Link>
               <Link
                 to="/reservations"
                 className={`nav-link ${isActive("/reservations") ? "active" : ""}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Contact
+                 Reservations
               </Link>
             </nav>
 
