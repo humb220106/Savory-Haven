@@ -1,0 +1,87 @@
+{
+  "stats": [
+    { "number": "2015", "label": "Founded" },
+    { "number": "50K+", "label": "Happy Guests" },
+    { "number": "15+", "label": "Awards Won" },
+    { "number": "8", "label": "Years of Excellence" }
+  ],
+  "values": [
+    {
+      "icon": "🌱",
+      "title": "Farm to Table",
+      "description": "We partner with local farms and sustainable suppliers to ensure our ingredients are fresh, ethical, and environmentally responsible."
+    },
+    {
+      "icon": "👨‍🍳",
+      "title": "Culinary Mastery",
+      "description": "Our chefs bring decades of experience from renowned kitchens, combining traditional techniques with innovative approaches."
+    },
+    {
+      "icon": "🤝",
+      "title": "Community Heart",
+      "description": "We believe in giving back to our community through local partnerships, charity events, and supporting emerging culinary talent."
+    },
+    {
+      "icon": "❤️",
+      "title": "Warm Hospitality",
+      "description": "Every guest is treated like family, with personalized service and attention to detail that makes every visit memorable."
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2015",
+      "title": "The Beginning",
+      "description": "Chef Maria Rodriguez opens Savory Haven with a vision to bring authentic flavors and warm hospitality to our community."
+    },
+    {
+      "year": "2017",
+      "title": "Recognition",
+      "description": "Awarded 'Best New Restaurant' by the Local Culinary Guild and featured in Regional Food Magazine."
+    },
+    {
+      "year": "2019",
+      "title": "Expansion",
+      "description": "Added our signature seasonal menu program and brought Chef David Kim to lead our innovative culinary team."
+    },
+    {
+      "year": "2021",
+      "title": "Innovation",
+      "description": "Launched our farm-to-table program and sustainable dining initiatives during challenging times."
+    },
+    {
+      "year": "2023",
+      "title": "Excellence",
+      "description": "Celebrated our 50,000th guest and received the prestigious 'Culinary Excellence Award' from the Restaurant Association."
+    }
+  ],
+  "team": [
+    {
+      "name": "Chef Maria Rodriguez",
+      "title": "Executive Chef & Owner",
+      "image": "https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=300&h=300&fit=crop&crop=face",
+      "bio": "Born in Valencia, Spain, Chef Maria trained in renowned restaurants across Europe before bringing her passion for authentic Mediterranean cuisine to America. Her philosophy centers on respecting traditional techniques while embracing seasonal innovation.",
+      "specialties": ["Mediterranean Cuisine", "Seasonal Menus", "Wine Pairing"]
+    },
+    {
+      "name": "Chef David Kim",
+      "title": "Sous Chef & Innovation Director",
+      "image": "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=300&h=300&fit=crop&crop=face",
+      "bio": "With roots in Seoul and training in New York's finest kitchens, Chef David brings innovative techniques to our kitchen. His expertise in fusion cuisine and modern presentation has earned critical acclaim.",
+      "specialties": ["Modern Techniques", "Fusion Cuisine", "Artistic Presentation"]
+    },
+    {
+      "name": "James Thompson",
+      "title": "Restaurant Manager & Sommelier",
+      "image": "https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=300&h=300&fit=crop&crop=face",
+      "bio": "A certified sommelier with over 12 years in hospitality, James ensures every guest receives exceptional service. His extensive wine knowledge and passion for hospitality create memorable dining experiences.",
+      "specialties": ["Wine Selection", "Guest Relations", "Service Excellence"]
+    },
+    {
+      "name": "Chef Sarah Williams",
+      "title": "Pastry Chef",
+      "image": "https://images.unsplash.com/photo-1566554273541-37a9ca77b91f?w=300&h=300&fit=crop&crop=face",
+      "bio": "Trained at the Culinary Institute of America, Chef Sarah specializes in artisanal desserts and bread making. Her creative approach to pastry combines classic techniques with modern flavors.",
+      "specialties": ["Artisan Pastries", "Bread Making", "Creative Desserts"]
+    }
+  ]
+}

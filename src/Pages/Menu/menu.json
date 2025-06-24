@@ -1,0 +1,210 @@
+{
+  "categories": [
+    { "id": "italian", "name": "Italian", "icon": "🍝" },
+    { "id": "asian", "name": "Asian", "icon": "🥢" },
+    { "id": "french", "name": "French", "icon": "🥖" },
+    { "id": "american", "name": "American", "icon": "🍔" }
+  ],
+  "items": {
+    "italian": [
+      {
+        "id": 1,
+        "name": "Truffle Arancini",
+        "description": "Crispy risotto balls with truffle oil, parmesan, and fresh herbs",
+        "price": "$14",
+        "image": "/images/italian/Truffle Arancini.jpeg",
+        "popular": true,
+        "ingredients": "Arborio rice, truffle oil, parmesan cheese, fresh herbs, breadcrumbs",
+        "cookingTime": "15 minutes",
+        "chef": "Chef Marco",
+        "calories": "320 cal"
+      },
+      {
+        "id": 2,
+        "name": "Osso Buco Milanese",
+        "description": "Braised veal shanks with saffron risotto and gremolata",
+        "price": "$38",
+        "image": "/images/italian/Osso Buco Milanese.jpg",
+        "popular": true,
+        "ingredients": "Veal shanks, arborio rice, saffron, white wine, vegetables",
+        "cookingTime": "45 minutes",
+        "chef": "Chef Marco",
+        "calories": "680 cal"
+      },
+      {
+        "id": 3,
+        "name": "Burrata Caprese",
+        "description": "Creamy burrata with heirloom tomatoes, basil, and aged balsamic",
+        "price": "$16",
+        "image": "/images/italian/Burrata Caprese.jpeg",
+        "popular": false,
+        "ingredients": "Burrata cheese, heirloom tomatoes, fresh basil, aged balsamic vinegar",
+        "cookingTime": "5 minutes",
+        "chef": "Chef Antonio",
+        "calories": "250 cal"
+      },
+      {
+        "id": 4,
+        "name": "Pasta Primavera",
+        "description": "House-made pasta filled with fresh lobster in a light cream sauce",
+        "price": "$32",
+        "image": "/images/PastaPrimavera.jpg",
+        "popular": false,
+        "ingredients": "Pasta, Vegetables, Butter, Garlic, Onion, Herbs, Cheese, Zest",
+        "cookingTime": "25 minutes",
+        "chef": "Chef Giovanni",
+        "calories": "520 cal"
+      }
+    ],
+    "asian": [
+      {
+        "id": 5,
+        "name": "Miso Glazed Black Cod",
+        "description": "Tender black cod marinated in sweet miso with pickled vegetables",
+        "price": "$34",
+        "image": "images/Asian/miso glazed.jpg",
+        "popular": true,
+        "ingredients": "Black cod, miso paste, mirin, sake, pickled vegetables",
+        "cookingTime": "20 minutes",
+        "chef": "Chef Yuki",
+        "calories": "380 cal"
+      },
+      {
+        "id": 6,
+        "name": "Peking Duck Pancakes",
+        "description": "Traditional roasted duck with hoisin sauce, scallions, and thin pancakes",
+        "price": "$42",
+        "image": "images/Asian/Peking Duck Pancakes.jpeg",
+        "popular": true,
+        "ingredients": "Whole duck, hoisin sauce, scallions, cucumber, pancakes",
+        "cookingTime": "40 minutes",
+        "chef": "Chef Chen",
+        "calories": "590 cal"
+      },
+      {
+        "id": 7,
+        "name": "Tuna Tataki",
+        "description": "Seared yellowfin tuna with sesame crust and ponzu dressing",
+        "price": "$19",
+        "image": "images/Asian/Tuna Tataki.jpeg",
+        "popular": false,
+        "ingredients": "Yellowfin tuna, sesame seeds, ponzu sauce, microgreens",
+        "cookingTime": "8 minutes",
+        "chef": "Chef Yuki",
+        "calories": "190 cal"
+      },
+      {
+        "id": 8,
+        "name": "Thai Green Curry",
+        "description": "Aromatic green curry with coconut milk, vegetables, and jasmine rice",
+        "price": "$24",
+        "image": "images/Asian/Thai Green Curry.jpeg",
+        "popular": false,
+        "ingredients": "Green curry paste, coconut milk, vegetables, jasmine rice",
+        "cookingTime": "18 minutes",
+        "chef": "Chef Siriporn",
+        "calories": "420 cal"
+      }
+    ],
+    "french": [
+      {
+        "id": 9,
+        "name": "Coq au Vin",
+        "description": "Classic braised chicken in red wine with pearl onions and mushrooms",
+        "price": "$29",
+        "image": "/images/French/Coq au Vin.jpeg",
+        "popular": true,
+        "ingredients": "Free-range chicken, red wine, pearl onions, mushrooms, herbs",
+        "cookingTime": "35 minutes",
+        "chef": "Chef Pierre",
+        "calories": "520 cal"
+      },
+      {
+        "id": 10,
+        "name": "Bouillabaisse Marseillaise",
+        "description": "Traditional Provençal fish stew with rouille and crusty bread",
+        "price": "$36",
+        "image": "/images/French/Bouillabaisse Marseillaise.jpeg",
+        "popular": false,
+        "ingredients": "Mixed fish, shellfish, saffron, tomatoes, fennel, rouille",
+        "cookingTime": "30 minutes",
+        "chef": "Chef Pierre",
+        "calories": "450 cal"
+      },
+      {
+        "id": 11,
+        "name": "Provençal Herb Poulet",
+        "description": "Slow-cooked duck leg with cherry gastrique and roasted root vegetables",
+        "price": "$32",
+        "image": "/images/Provençal Herb Poulet.jpeg",
+        "popular": false,
+        "ingredients": "Duck leg, cherry gastrique, root vegetables, herbs",
+        "cookingTime": "45 minutes",
+        "chef": "Chef Pierre",
+        "calories": "590 cal"
+      },
+      {
+        "id": 12,
+        "name": "Chocolate Soufflé",
+        "description": "Warm dark chocolate soufflé with vanilla bean ice cream and gold leaf",
+        "price": "$14",
+        "image": "images/French/Chocolate Soufflé.jpeg",
+        "popular": true,
+        "ingredients": "Dark chocolate, butter, eggs, flour, vanilla ice cream",
+        "cookingTime": "18 minutes",
+        "chef": "Chef Amélie",
+        "calories": "420 cal"
+      }
+    ],
+    "american": [
+      {
+        "id": 13,
+        "name": "Ribeye Steak",
+        "description": "28-day aged ribeye with garlic mashed potatoes and seasonal vegetables",
+        "price": "$45",
+        "image": "/images/Ribeye Steak.jpg",
+        "popular": true,
+        "ingredients": "Prime ribeye, garlic, potatoes, butter, seasonal vegetables",
+        "cookingTime": "25 minutes",
+        "chef": "Chef Marcus",
+        "calories": "680 cal"
+      },
+      {
+        "id": 14,
+        "name": "Grilled Atlantic Salmon",
+        "description": "Fresh salmon with lemon herb butter, roasted vegetables, and quinoa pilaf",
+        "price": "$28",
+        "image": "/images/American/Grilled Atlantic Salmon.jpeg",
+        "popular": true,
+        "ingredients": "Atlantic salmon, lemon, herbs, butter, seasonal vegetables, quinoa",
+        "cookingTime": "20 minutes",
+        "chef": "Chef Elena",
+        "calories": "450 cal"
+      },
+      {
+        "id": 15,
+        "name": "BBQ Pulled Pork",
+        "description": "Slow-smoked pork shoulder with house BBQ sauce and coleslaw",
+        "price": "$22",
+        "image": "/images/American/BBQ Pulled Pork.jpeg",
+        "popular": false,
+        "ingredients": "Pork shoulder, BBQ sauce, cabbage, carrots, brioche bun",
+        "cookingTime": "30 minutes",
+        "chef": "Chef Jake",
+        "calories": "580 cal"
+      },
+      {
+        "id": 16,
+        "name": "New York Cheesecake",
+        "description": "Classic creamy cheesecake with berry compote and graham cracker crust",
+        "price": "$12",
+        "image": "/images/American/New York Cheesecake.jpeg",
+        "popular": true,
+        "ingredients": "Cream cheese, eggs, graham crackers, mixed berries, sugar",
+        "cookingTime": "15 minutes prep",
+        "chef": "Chef Sofia",
+        "calories": "380 cal"
+      }
+    ]
+  }
+}
