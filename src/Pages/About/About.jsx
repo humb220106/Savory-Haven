@@ -50,7 +50,7 @@ const About = () => {
             </div>
             <div className="story-image">
               <img
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&h=400&fit=crop"
+                src="about.jpg"
                 alt="Restaurant atmosphere"
               />
             </div>

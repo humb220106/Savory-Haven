@@ -44,7 +44,7 @@ const Menu = () => {
             <div className="philosophy-item">
               <div className="philosophy-image">
                 <img
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop"
+                  src="Farm to Table Excellence.jpg"
                   alt="Farm fresh ingredients"
                 />
               </div>
@@ -60,7 +60,7 @@ const Menu = () => {
             <div className="philosophy-item">
               <div className="philosophy-image">
                 <img
-                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop"
+                  src="Artisanal Craftsmanship.jpg"
                   alt="Chef preparing food"
                 />
               </div>
