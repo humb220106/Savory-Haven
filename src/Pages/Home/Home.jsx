@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Utensils, ChefHat, Landmark } from "lucide-react";
 import "./Home.css";
 
 const restaurantData = {
@@ -29,21 +30,21 @@ const restaurantData = {
   features: [
     {
       id: 1,
-      icon: "🍽️",
+      icon: <Utensils size={32} />,
       title: "Fresh Ingredients",
       description: "Locally sourced, premium quality ingredients prepared daily",
       link: "/menu"
     },
     {
       id: 2,
-      icon: "👨‍🍳",
+      icon: <ChefHat size={32} />,
       title: "Expert Chefs",
       description: "Award-winning chefs with years of culinary expertise",
       link: "/chefs"
     },
     {
       id: 3,
-      icon: "🏛️",
+      icon: <Landmark size={32} />,
       title: "Elegant Atmosphere",
       description: "Beautiful ambiance perfect for any dining occasion",
       link: "/gallery"
