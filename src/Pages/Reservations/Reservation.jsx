@@ -1,5 +1,13 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import {
+  ParkingCircle,
+  Wifi,
+  Accessibility,
+  CreditCard,
+  Gift,
+  Users
+} from "lucide-react"
 import "./Reservation.css"
 import reservationData from "./Reservation.json"
 
@@ -279,13 +287,40 @@ const Reservation = () => {
       <section className="additional-info-section">
         <div className="container">
           <div className="info-grid">
-            {reservationData.services.map((service, index) => (
-              <div key={index} className="info-item">
-                <div className="info-icon">{service.icon}</div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </div>
-            ))}
+            {reservationData.services.map((service, index) => {
+              let IconComponent;
+              switch (service.icon) {
+                case "parking":
+                  IconComponent = ParkingCircle;
+                  break;
+                case "wifi":
+                  IconComponent = Wifi;
+                  break;
+                case "accessibility":
+                  IconComponent = Accessibility;
+                  break;
+                case "credit-card":
+                  IconComponent = CreditCard;
+                  break;
+                case "gift":
+                  IconComponent = Gift;
+                  break;
+                case "group":
+                  IconComponent = Users;
+                  break;
+                default:
+                  IconComponent = null;
+              }
+              return (
+                <div key={index} className="info-item">
+                  <div className="info-icon">
+                    {IconComponent ? <IconComponent size={32} /> : null}
+                  </div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
