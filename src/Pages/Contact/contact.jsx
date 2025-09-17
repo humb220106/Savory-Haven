@@ -1,5 +1,16 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Facebook,
+  Instagram,
+  Twitter,
+  Linkedin,
+  Map as MapIcon
+} from "lucide-react"
 import "./contact.css"
 
 const Contact = () => {
@@ -16,28 +27,28 @@ const Contact = () => {
 
   const contactMethods = [
     {
-      icon: "📞",
+      icon: <Phone size={28} />,
       title: "Phone",
       primary: "(555) 123-4567",
       secondary: "Available daily 4:00 PM - 11:00 PM",
       action: "tel:+15551234567",
     },
     {
-      icon: "✉️",
+      icon: <Mail size={28} />,
       title: "Email",
       primary: "info@savoryhaven.com",
       secondary: "We respond within 24 hours",
       action: "mailto:info@savoryhaven.com",
     },
     {
-      icon: "📍",
+      icon: <MapPin size={28} />,
       title: "Location",
       primary: "123 Culinary Street",
       secondary: "Downtown District, City 12345",
       action: "https://maps.google.com",
     },
     {
-      icon: "🕒",
+      icon: <Clock size={28} />,
       title: "Hours",
       primary: "Mon-Thu: 5PM-10PM",
       secondary: "Fri-Sat: 5PM-11PM, Sun: 4PM-9PM",
@@ -278,19 +289,19 @@ const Contact = () => {
                 <h3>Follow Us</h3>
                 <div className="social-links">
                   <a href="#" className="social-link">
-                    <span className="social-icon">📘</span>
+                    <span className="social-icon"><Facebook size={20} /></span>
                     Facebook
                   </a>
                   <a href="#" className="social-link">
-                    <span className="social-icon">📷</span>
+                    <span className="social-icon"><Instagram size={20} /></span>
                     Instagram
                   </a>
                   <a href="#" className="social-link">
-                    <span className="social-icon">🐦</span>
+                    <span className="social-icon"><Twitter size={20} /></span>
                     Twitter
                   </a>
                   <a href="#" className="social-link">
-                    <span className="social-icon">💼</span>
+                    <span className="social-icon"><Linkedin size={20} /></span>
                     LinkedIn
                   </a>
                 </div>
@@ -307,7 +318,7 @@ const Contact = () => {
           <div className="map-container">
             <div className="map-placeholder">
               <div className="map-content">
-                <div className="map-icon">🗺️</div>
+                <div className="map-icon"><MapIcon size={32} /></div>
                 <h3>Interactive Map</h3>
                 <p>123 Culinary Street, Downtown District</p>
                 <p>Located in the heart of the culinary district, easily accessible by public transport and car.</p>
