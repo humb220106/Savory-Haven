@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home";
 import Menu from "./Pages/Menu/menu";
 import About from "./Pages/About/About"; 
 import Reservation from "./Pages/Reservations/Reservation"
+import BackToTop from "./components/Backtotop";
 import Contact from "./Pages/Contact/contact"
 
 import AOS from "aos";
@@ -26,6 +27,7 @@ function App() {
          <Route path="/contact" element={<Contact />} />
     
       </Routes>
+        <BackToTop />
     </div>
   );
 }
