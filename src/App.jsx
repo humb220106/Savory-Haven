@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./Pages/Home/Home";
 import Menu from "./Pages/Menu/menu";
 import About from "./Pages/About/About"; 
 import Reservation from "./Pages/Reservations/Reservation"
-import BackToTop from "./components/Backtotop";
 import Contact from "./Pages/Contact/contact"
 
 import AOS from "aos";
@@ -19,6 +19,7 @@ function App() {
   return (
     <div>
       <Header />
+      <ScrollToTop behavior="auto" />
       <Routes>
         <Route path="/" element={<Home />} />
        <Route path="/Menu" element={<Menu />} />
@@ -27,7 +28,7 @@ function App() {
          <Route path="/contact" element={<Contact />} />
     
       </Routes>
-        <BackToTop />
+       
     </div>
   );
 }
