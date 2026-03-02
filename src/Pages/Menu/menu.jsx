@@ -1,31 +1,82 @@
-import { useState } from "react"
+// src/Pages/Menu/menu.jsx
+// ─ Loads categories and dishes from the live API.
+// ─ Falls back gracefully to loading/error states.
+// ─ All CSS and modal logic unchanged from original.
+
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import "./menu.css"
-import menuData from "./menu.json";
+import { getCategories, getDishesByCategory } from "../../api/menuService"
+
+const CATEGORY_DESCRIPTIONS = {
+  italian:  "Experience the rich culinary heritage of Italy with authentic dishes prepared using traditional techniques and the finest imported ingredients.",
+  asian:    "Discover the diverse flavors of Asia through our carefully curated selection of dishes celebrating the culinary traditions of Japan, China, Thailand, and beyond.",
+  french:   "Indulge in the elegance of French cuisine with our classically trained chefs bringing centuries of culinary tradition to every plate.",
+  american: "Savor contemporary American cuisine that celebrates local ingredients and innovative cooking techniques.",
+}
+
+// Normalise backend field names to what the template uses
+function normalise(dish) {
+  return {
+    ...dish,
+    image:   dish.primaryImage ?? "/placeholder.svg",
+    popular: dish.isPopular,
+    price:   `$${Number(dish.price).toFixed(0)}`,
+  }
+}
 
 const Menu = () => {
-  const [activeCategory, setActiveCategory] = useState("italian")
-  const [selectedItem, setSelectedItem] = useState(null)
+  const [categories,     setCategories]     = useState([])
+  const [currentItems,   setCurrentItems]   = useState([])
+  const [activeCategory, setActiveCategory] = useState("")
+  const [selectedItem,   setSelectedItem]   = useState(null)
+  const [loadingCats,    setLoadingCats]    = useState(true)
+  const [loadingDishes,  setLoadingDishes]  = useState(false)
+  const [error,          setError]          = useState("")
 
-  const currentItems = menuData.items[activeCategory] || []
+  // Load categories once on mount
+  useEffect(() => {
+    getCategories()
+      .then((data) => {
+        setCategories(data)
+        if (data.length > 0) setActiveCategory(data[0].slug)
+      })
+      .catch(() => setError("Could not load menu categories. Please try again later."))
+      .finally(() => setLoadingCats(false))
+  }, [])
 
-  const openModal = (item) => {
-    setSelectedItem(item)
-  }
+  // Load dishes whenever the active category changes
+  useEffect(() => {
+    if (!activeCategory) return
+    setLoadingDishes(true)
+    getDishesByCategory(activeCategory)
+      .then((data) => setCurrentItems(data))
+      .catch(() => setError("Could not load dishes."))
+      .finally(() => setLoadingDishes(false))
+  }, [activeCategory])
 
-  const closeModal = () => {
-    setSelectedItem(null)
-  }
+  const openModal        = (item) => setSelectedItem(item)
+  const closeModal       = ()     => setSelectedItem(null)
+  const handleModalClick = (e)    => { if (e.target.classList.contains("modal-overlay")) closeModal() }
 
-  const handleModalClick = (e) => {
-    if (e.target.classList.contains("modal-overlay")) {
-      closeModal()
-    }
-  }
+  if (loadingCats) return (
+    <div style={{ display:"flex", justifyContent:"center", alignItems:"center", minHeight:"60vh" }}>
+      <p style={{ fontSize:"1.2rem", color:"#666" }}>Loading menu…</p>
+    </div>
+  )
+
+  if (error) return (
+    <div style={{ display:"flex", justifyContent:"center", alignItems:"center", minHeight:"60vh" }}>
+      <p style={{ color:"red", fontSize:"1.1rem" }}>{error}</p>
+    </div>
+  )
+
+  const activeCategoryName = categories.find((c) => c.slug === activeCategory)?.name ?? ""
 
   return (
     <div className="text-menu">
-      {/* Header with Restaurant Story */}
+
+      {/* Hero */}
       <header className="menu-header">
         <div className="header-hero">
           <img
@@ -36,89 +87,42 @@ const Menu = () => {
         </div>
       </header>
 
-      {/* Philosophy Section */}
+      {/* Philosophy */}
       <section className="philosophy-section">
         <div className="container">
           <h2 className="section-title">Our Culinary Philosophy</h2>
           <div className="philosophy-grid">
-            <div className="philosophy-item">
-              <div className="philosophy-image">
-                <img
-                  src="Farm to Table Excellence.jpg"
-                  alt="Farm fresh ingredients"
-                />
+            {[
+              { src: "Farm to Table Excellence.jpg",  alt: "Farm fresh ingredients",  title: "Farm to Table Excellence",  text: "We believe that exceptional cuisine begins with exceptional ingredients. Our relationships with local farmers ensure that every component of your meal is fresh, sustainable, and bursting with natural flavor." },
+              { src: "Artisanal Craftsmanship.jpg",   alt: "Chef preparing food",     title: "Artisanal Craftsmanship",   text: "Every dish is a work of art, crafted by skilled chefs who have dedicated their lives to the culinary arts. Our kitchen is where tradition meets innovation." },
+              { src: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop", alt: "Seasonal ingredients", title: "Seasonal Inspiration", text: "Our menu evolves with the seasons, reflecting the natural rhythm of the earth and the peak flavors of each time of year." },
+            ].map((p) => (
+              <div key={p.title} className="philosophy-item">
+                <div className="philosophy-image"><img src={p.src} alt={p.alt} /></div>
+                <div className="philosophy-content"><h3>{p.title}</h3><p>{p.text}</p></div>
               </div>
-              <div className="philosophy-content">
-                <h3>Farm to Table Excellence</h3>
-                <p>
-                  We believe that exceptional cuisine begins with exceptional ingredients. Our relationships with local
-                  farmers ensure that every component of your meal is fresh, sustainable, and bursting with natural
-                  flavor.
-                </p>
-              </div>
-            </div>
-            <div className="philosophy-item">
-              <div className="philosophy-image">
-                <img
-                  src="Artisanal Craftsmanship.jpg"
-                  alt="Chef preparing food"
-                />
-              </div>
-              <div className="philosophy-content">
-                <h3>Artisanal Craftsmanship</h3>
-                <p>
-                  Every dish is a work of art, crafted by skilled chefs who have dedicated their lives to the culinary
-                  arts. Our kitchen is where tradition meets innovation, enhanced by modern creativity.
-                </p>
-              </div>
-            </div>
-            <div className="philosophy-item">
-              <div className="philosophy-image">
-                <img
-                  src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=300&fit=crop"
-                  alt="Seasonal ingredients"
-                />
-              </div>
-              <div className="philosophy-content">
-                <h3>Seasonal Inspiration</h3>
-                <p>
-                  Our menu evolves with the seasons, reflecting the natural rhythm of the earth and the peak flavors of
-                  each time of year. Each season brings new discoveries and renewed excitement.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Menu Navigation */}
+      {/* Category Navigation */}
       <nav className="menu-navigation">
         <div className="container">
           <h2 className="nav-title">Explore Our Menu</h2>
-          <p className="nav-description">
-            Journey through the world's finest cuisines, each prepared with authentic techniques and premium
-            ingredients.
-          </p>
+          <p className="nav-description">Journey through the world's finest cuisines, each prepared with authentic techniques and premium ingredients.</p>
           <div className="category-links">
-            {menuData.categories.map((category) => (
+            {categories.map((category, index) => (
               <button
                 key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`category-link ${activeCategory === category.id ? "active" : ""}`}
+                onClick={() => setActiveCategory(category.slug)}
+                className={`category-link ${activeCategory === category.slug ? "active" : ""}`}
               >
-                <span className="category-number">
-                  {String(menuData.categories.indexOf(category) + 1).padStart(2, "0")}
-                </span>
+                <span className="category-number">{String(index + 1).padStart(2, "0")}</span>
                 <div className="category-info">
-                  <h3 className="category-name">{category.name}</h3>
+                  <h3 className="category-name">{category.icon} {category.name}</h3>
                   <p className="category-description">
-                    {category.id === "italian" &&
-                      "Authentic Italian flavors with house-made pasta and traditional recipes"}
-                    {category.id === "asian" && "Pan-Asian cuisine featuring fresh ingredients and bold flavors"}
-                    {category.id === "french" &&
-                      "Classic French techniques with modern presentation and seasonal ingredients"}
-                    {category.id === "american" &&
-                      "Contemporary American dishes with locally sourced premium ingredients"}
+                    {CATEGORY_DESCRIPTIONS[category.slug] ?? "Discover our delicious selection."}
                   </p>
                 </div>
               </button>
@@ -127,76 +131,58 @@ const Menu = () => {
         </div>
       </nav>
 
-      {/* Current Category Introduction */}
+      {/* Category intro */}
       <section className="category-intro">
         <div className="container">
           <div className="intro-content">
-            <h2 className="category-title">{menuData.categories.find((cat) => cat.id === activeCategory)?.name}</h2>
+            <h2 className="category-title">{activeCategoryName}</h2>
             <div className="category-description-full">
-              {activeCategory === "italian" && (
-                <p>
-                  Experience the rich culinary heritage of Italy with our authentic dishes prepared using traditional
-                  techniques and the finest imported ingredients. From handmade pasta to wood-fired specialties.
-                </p>
-              )}
-              {activeCategory === "asian" && (
-                <p>
-                  Discover the diverse flavors of Asia through our carefully curated selection of dishes that celebrate
-                  the culinary traditions of Japan, China, Thailand, and beyond.
-                </p>
-              )}
-              {activeCategory === "french" && (
-                <p>
-                  Indulge in the elegance of French cuisine with our classically trained chefs who bring centuries of
-                  culinary tradition to every plate with modern flair and seasonal ingredients.
-                </p>
-              )}
-              {activeCategory === "american" && (
-                <p>
-                  Savor contemporary American cuisine that celebrates local ingredients and innovative cooking
-                  techniques, creating dishes that are both familiar and exciting.
-                </p>
-              )}
+              <p>{CATEGORY_DESCRIPTIONS[activeCategory] ?? ""}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Menu Items */}
+      {/* Dishes */}
       <section className="menu-items">
         <div className="container">
-          <div className="items-list">
-            {currentItems.map((item, index) => (
-              <article key={item.id} className="menu-item" onClick={() => openModal(item)}>
-                <div className="item-image">
-                  <img src={item.image || "/placeholder.svg"} alt={item.name} />
-                </div>
-                <div className="item-number">{String(index + 1).padStart(2, "0")}</div>
-                <div className="item-content">
-                  <div className="item-header">
-                    <h3 className="item-name">{item.name}</h3>
-                    <span className="item-price">{item.price}</span>
-                  </div>
-                  <p className="item-description">{item.description}</p>
-                  <div className="item-details">
-                    <div className="detail-group">
-                      <span className="detail-label">Chef:</span>
-                      <span className="detail-value">{item.chef}</span>
+          {loadingDishes ? (
+            <p style={{ textAlign:"center", padding:"2rem", color:"#666" }}>Loading dishes…</p>
+          ) : (
+            <div className="items-list">
+              {currentItems.map((rawItem, index) => {
+                const item = normalise(rawItem)
+                return (
+                  <article key={item.id} className="menu-item" onClick={() => openModal(item)}>
+                    <div className="item-image">
+                      <img src={item.image} alt={item.name} />
                     </div>
-                    <div className="detail-group">
-                      <span className="detail-label">Time:</span>
-                      <span className="detail-value">{item.cookingTime}</span>
-                    </div>
-                    {item.popular && (
-                      <div className="popular-indicator">
-                        <span>★ Guest Favorite</span>
+                    <div className="item-number">{String(index + 1).padStart(2, "0")}</div>
+                    <div className="item-content">
+                      <div className="item-header">
+                        <h3 className="item-name">{item.name}</h3>
+                        <span className="item-price">{item.price}</span>
                       </div>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                      <p className="item-description">{item.description}</p>
+                      <div className="item-details">
+                        <div className="detail-group">
+                          <span className="detail-label">Chef:</span>
+                          <span className="detail-value">{item.chef}</span>
+                        </div>
+                        <div className="detail-group">
+                          <span className="detail-label">Time:</span>
+                          <span className="detail-value">{item.cookingTime}</span>
+                        </div>
+                        {item.popular && (
+                          <div className="popular-indicator"><span>★ Guest Favorite</span></div>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -204,36 +190,23 @@ const Menu = () => {
       {selectedItem && (
         <div className="modal-overlay" onClick={handleModalClick}>
           <div className="text-modal">
-            <button className="modal-close" onClick={closeModal}>
-              ×
-            </button>
+            <button className="modal-close" onClick={closeModal}>×</button>
             <div className="modal-image-section">
-              <img src={selectedItem.image || "/placeholder.svg"} alt={selectedItem.name} />
+              <img src={selectedItem.image} alt={selectedItem.name} />
             </div>
             <div className="modal-text-section">
               <div className="modal-header">
                 <h2 className="modal-title">{selectedItem.name}</h2>
                 <span className="modal-price">{selectedItem.price}</span>
               </div>
-
-              <div className="modal-description">
-                <p>{selectedItem.description}</p>
-              </div>
-
+              <div className="modal-description"><p>{selectedItem.description}</p></div>
               <div className="modal-details-grid">
                 <div className="modal-detail">
                   <h4>Preparation Details</h4>
-                  <p>
-                    <strong>Chef:</strong> {selectedItem.chef}
-                  </p>
-                  <p>
-                    <strong>Time:</strong> {selectedItem.cookingTime}
-                  </p>
-                  <p>
-                    <strong>Calories:</strong> {selectedItem.calories}
-                  </p>
+                  <p><strong>Chef:</strong> {selectedItem.chef}</p>
+                  <p><strong>Time:</strong> {selectedItem.cookingTime}</p>
+                  <p><strong>Calories:</strong> {selectedItem.calories}</p>
                 </div>
-
                 <div className="modal-detail">
                   <h4>Ingredients</h4>
                   <p>{selectedItem.ingredients}</p>
@@ -244,49 +217,20 @@ const Menu = () => {
         </div>
       )}
 
-      {/* Reservations & Contact */}
+      {/* CTA */}
       <section className="reservations-section">
         <div className="container">
           <div className="reservations-content">
             <div className="reservations-text">
               <h2 className="section-title">Join Us for an Unforgettable Evening</h2>
-              <p>
-                We invite you to experience the passion, creativity, and hospitality that define Bella Vista. Whether
-                you're planning an intimate dinner or a special celebration, we're here to make your evening
-                extraordinary.
-              </p>
+              <p>We invite you to experience the passion, creativity, and hospitality that define Savory Haven.</p>
               <div className="cta-buttons">
-                <Link to="/reservations" className="primary-button">
-                  Make a Reservation
-                </Link>
-                <Link to="/contact" className="secondary-button">
-                  Contact Us
-                </Link>
+                <Link to="/reservations" className="primary-button">Make a Reservation</Link>
+                <Link to="/contact"      className="secondary-button">Contact Us</Link>
               </div>
             </div>
             <div className="reservations-image">
-              <img
-                src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop"
-                alt="Restaurant dining room"
-              />
-            </div>
-          </div>
-          <div className="contact-info">
-            <div className="contact-item">
-              <h4>Reservations</h4>
-              <p>Phone: (555) 123-4567</p>
-              <p>Email: reservations@bellavista.com</p>
-            </div>
-            <div className="contact-item">
-              <h4>Hours</h4>
-              <p>Tue-Thu: 5:00 PM - 10:00 PM</p>
-              <p>Fri-Sat: 5:00 PM - 11:00 PM</p>
-              <p>Sun: 4:00 PM - 9:00 PM</p>
-            </div>
-            <div className="contact-item">
-              <h4>Location</h4>
-              <p>123 Culinary Street</p>
-              <p>Food City, FC 12345</p>
+              <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop" alt="Restaurant dining room" />
             </div>
           </div>
         </div>
@@ -296,4 +240,3 @@ const Menu = () => {
 }
 
 export default Menu
-
