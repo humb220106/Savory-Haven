@@ -1,12 +1,4 @@
-// src/api/apiClient.js
-// ─────────────────────────────────────────────────────────────────────────────
-// All API calls go through here. Handles:
-//   • Base URL (matches your backend launchSettings.json port 7222)
-//   • Auto-attaches JWT token to every request
-//   • Handles 401 token-expired by clearing auth and redirecting to /login
-// ─────────────────────────────────────────────────────────────────────────────
-
-export const API_BASE = "/api";  // Vite proxy forwards this to https://localhost:7222/api
+export const API_BASE = "/api";
 
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem("accessToken");
@@ -22,7 +14,7 @@ async function request(endpoint, options = {}) {
     headers,
   });
 
-  // Token expired — clear auth and go to login
+  // Token expired
   if (response.status === 401) {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -31,19 +23,36 @@ async function request(endpoint, options = {}) {
     return;
   }
 
-  // 204 No Content — nothing to parse
-  if (response.status === 204) return null;
+  // No content responses
+  if (response.status === 204 || response.status === 205) return null;
 
-  const data = await response.json();
+  // Safely parse — backend might return empty body on some endpoints
+  const text = await response.text();
+  let data = null;
+
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch {
+      // Backend returned non-JSON (e.g. plain text message)
+      if (!response.ok) throw new Error(text || "Something went wrong");
+      return text;
+    }
+  }
 
   if (!response.ok) {
-    throw new Error(data.message || data.title || "Something went wrong");
+    // Handle ASP.NET validation error shape: { errors: { field: ["msg"] } }
+    if (data?.errors) {
+      const messages = Object.values(data.errors).flat().join(" ");
+      throw new Error(messages);
+    }
+    throw new Error(data?.message || data?.title || "Something went wrong");
   }
 
   return data;
 }
 
 export const apiGet    = (endpoint)       => request(endpoint, { method: "GET" });
-export const apiPost   = (endpoint, body) => request(endpoint, { method: "POST",  body: JSON.stringify(body) });
-export const apiPut    = (endpoint, body) => request(endpoint, { method: "PUT",   body: JSON.stringify(body) });
+export const apiPost   = (endpoint, body) => request(endpoint, { method: "POST",   body: JSON.stringify(body) });
+export const apiPut    = (endpoint, body) => request(endpoint, { method: "PUT",    body: JSON.stringify(body) });
 export const apiDelete = (endpoint)       => request(endpoint, { method: "DELETE" });

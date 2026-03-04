@@ -7,8 +7,8 @@ export async function register(userData) {
   return await apiPost("/auth/register", userData);
 }
 
-export async function login(email, password) {
-  const data = await apiPost("/auth/login", { email, password });
+export async function login(username, password) {
+  const data = await apiPost("/auth/login", { username, password });
   localStorage.setItem("accessToken",  data.accessToken);
   localStorage.setItem("refreshToken", data.refreshToken);
   localStorage.setItem("user",         JSON.stringify(data.user));
