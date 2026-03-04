@@ -81,13 +81,13 @@ const Landing = () => {
         <div className="landing-buttons">
           <button
             className="landing-btn-primary"
-            onClick={() => navigate("/home")}
+            onClick={() => navigate("/login")}
           >
             Explore Restaurant
           </button>
           <button
             className="landing-btn-secondary"
-            onClick={() => navigate("/reservations")}
+            onClick={() => navigate("/login")}
           >
             Reserve a Table
           </button>
