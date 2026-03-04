@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { UtensilsCrossed, User, Mail, Phone, Lock, ArrowRight, Eye, EyeOff } from "lucide-react"
 import { register } from "../../api/authService"
 import "./Register.css"
 
@@ -8,6 +9,7 @@ const Register = () => {
   const [form, setForm] = useState({ username: "", email: "", password: "", phoneNumber: "" })
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -26,42 +28,127 @@ const Register = () => {
   }
 
   return (
-    <div className="register-page">
-      <div className="register-card">
-        <div className="register-brand">
-          <span>🍽️</span>
-          <h1>Savory Haven</h1>
+    <div className="auth-page">
+
+      {/* Left Panel */}
+      <div className="auth-left">
+        <img
+          src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&h=1200&fit=crop"
+          alt="Fine dining"
+          className="auth-bg-img"
+        />
+        <div className="auth-left-overlay" />
+        <div className="auth-left-content">
+          <UtensilsCrossed size={40} color="#c8963e" />
+          <h2>Join Savory Haven</h2>
+          <p>Create your account and unlock exclusive dining experiences, reservations, and more.</p>
+          <div className="auth-left-perks">
+            <div className="auth-perk">✓ Easy table reservations</div>
+            <div className="auth-perk">✓ Exclusive member offers</div>
+            <div className="auth-perk">✓ Priority booking</div>
+          </div>
         </div>
-        <h2>Create Account</h2>
-        <p className="register-sub">Join us for an unforgettable experience</p>
+      </div>
 
-        {error && <div className="register-error">{error}</div>}
+      {/* Right Panel */}
+      <div className="auth-right">
+        <div className="auth-form-wrap">
 
-        <form onSubmit={handleSubmit} className="register-form">
-          <div className="form-group">
-            <label>Username</label>
-            <input type="text" name="username" value={form.username} onChange={handleChange} required placeholder="johndoe" />
-          </div>
-          <div className="form-group">
-            <label>Email Address</label>
-            <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="you@example.com" />
-          </div>
-          <div className="form-group">
-            <label>Phone Number</label>
-            <input type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} placeholder="+1 555 000 0000" />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" name="password" value={form.password} onChange={handleChange} required placeholder="••••••••" />
-          </div>
-          <button type="submit" className="register-btn" disabled={loading}>
-            {loading ? "Creating account…" : "Create Account"}
-          </button>
-        </form>
+          <Link to="/" className="auth-back">← Back to Home</Link>
 
-        <p className="register-footer">
-          Already have an account? <Link to="/login">Sign In</Link>
-        </p>
+          <div className="auth-header">
+            <h1>Create Account</h1>
+            <p>Join us for an unforgettable dining experience</p>
+          </div>
+
+          {error && (
+            <div className="auth-error">
+              <span>⚠️</span> {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="auth-field">
+              <label>Username</label>
+              <div className="auth-input-wrap">
+                <User size={18} color="#999" className="auth-input-icon" />
+                <input
+                  type="text"
+                  name="username"
+                  value={form.username}
+                  onChange={handleChange}
+                  placeholder="johndoe"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="auth-field">
+              <label>Email Address</label>
+              <div className="auth-input-wrap">
+                <Mail size={18} color="#999" className="auth-input-icon" />
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="auth-field">
+              <label>Phone Number</label>
+              <div className="auth-input-wrap">
+                <Phone size={18} color="#999" className="auth-input-icon" />
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={form.phoneNumber}
+                  onChange={handleChange}
+                  placeholder="+1 555 000 0000"
+                />
+              </div>
+            </div>
+
+            <div className="auth-field">
+              <label>Password</label>
+              <div className="auth-input-wrap">
+                <Lock size={18} color="#999" className="auth-input-icon" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  className="auth-eye-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={18} color="#999" /> : <Eye size={18} color="#999" />}
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" className="auth-submit-btn" disabled={loading}>
+              {loading ? (
+                <span className="auth-spinner" />
+              ) : (
+                <>Create Account <ArrowRight size={18} /></>
+              )}
+            </button>
+          </form>
+
+          <div className="auth-divider"><span>or</span></div>
+
+          <p className="auth-switch">
+            Already have an account? <Link to="/login">Sign In</Link>
+          </p>
+        </div>
       </div>
     </div>
   )

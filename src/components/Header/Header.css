@@ -154,6 +154,16 @@
   opacity: 1;
   visibility: visible;
 }
+.admin-link {
+  color: #c8963e !important;
+  font-weight: 700;
+}
+
+.outline-btn {
+  background: transparent !important;
+  border: 1px solid #c8963e !important;
+  color: #c8963e !important;
+}
 
 /* Mobile Styles */
 @media (max-width: 768px) {

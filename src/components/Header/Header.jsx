@@ -1,23 +1,22 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUtensils, faBars } from "@fortawesome/free-solid-svg-icons"
+import { UtensilsCrossed, Menu, X } from "lucide-react"
 import { useAuth } from "../../context/AuthContext"
 import { logout } from "../../api/authService"
 import "./Header.css"
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const location = useLocation()
-  const navigate = useNavigate()
+  const [isScrolled, setIsScrolled]             = useState(false)
+  const location  = useLocation()
+  const navigate  = useNavigate()
   const { user, signOut } = useAuth()
 
-  const handleLogout = async () => {
-    await logout()
-    signOut()
-    navigate("/")
-  }
+ const handleLogout = async () => {
+  await logout()
+  signOut()
+  navigate("/login")
+}
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -28,70 +27,71 @@ const Header = () => {
   const isActive = (path) => location.pathname === path
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest(".header")) {
+    const handleClickOutside = (e) => {
+      if (isMobileMenuOpen && !e.target.closest(".header"))
         setIsMobileMenuOpen(false)
-      }
     }
     document.addEventListener("click", handleClickOutside)
     return () => document.removeEventListener("click", handleClickOutside)
   }, [isMobileMenuOpen])
+
+  const close = () => setIsMobileMenuOpen(false)
 
   return (
     <>
       <header className={`header ${isScrolled ? "header-scrolled" : ""}`}>
         <div className="container">
           <div className="header-content">
-            <Link to="/" className="logo">
-              <FontAwesomeIcon icon={faUtensils} />
+
+            {/* Logo — goes to /home not / */}
+            <Link to="/home" className="logo">
+              <UtensilsCrossed size={22} color="#c8963e" />
               <span>Savory Haven</span>
             </Link>
 
+            {/* Nav */}
             <nav className={`nav ${isMobileMenuOpen ? "nav-open" : ""}`}>
-              <Link to="/" className={`nav-link ${isActive("/") ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
-              <Link to="/menu" className={`nav-link ${isActive("/menu") ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}>Menu</Link>
-              <Link to="/about" className={`nav-link ${isActive("/about") ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-              <Link to="/contact" className={`nav-link ${isActive("/contact") ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-              <Link to="/reservations" className={`nav-link ${isActive("/reservations") ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}>Reservations</Link>
+              <Link to="/home"         className={`nav-link ${isActive("/home")         ? "active" : ""}`} onClick={close}>Home</Link>
+              <Link to="/menu"         className={`nav-link ${isActive("/menu")         ? "active" : ""}`} onClick={close}>Menu</Link>
+              <Link to="/about"        className={`nav-link ${isActive("/about")        ? "active" : ""}`} onClick={close}>About</Link>
+              <Link to="/contact"      className={`nav-link ${isActive("/contact")      ? "active" : ""}`} onClick={close}>Contact</Link>
+              <Link to="/reservations" className={`nav-link ${isActive("/reservations") ? "active" : ""}`} onClick={close}>Reservations</Link>
             </nav>
 
+            {/* Actions */}
             <div className="header-actions">
               {user ? (
                 <>
                   {user.roles?.includes("Admin") && (
-                    <Link to="/admin" className="nav-link" style={{ color: "#c8963e", fontWeight: 700 }}>
-                      Admin
-                    </Link>
+                    <Link to="/admin" className="nav-link admin-link">Admin</Link>
                   )}
-                  <button
-                    onClick={handleLogout}
-                    className="reserve-btn"
-                    style={{ background: "transparent", border: "1px solid #c8963e", color: "#c8963e" }}
-                  >
+                  <button onClick={handleLogout} className="reserve-btn outline-btn">
                     Sign Out
                   </button>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="nav-link">Login</Link>
+                  <Link to="/login"        className="nav-link">Login</Link>
                   <Link to="/reservations" className="reserve-btn">Reserve Table</Link>
                 </>
               )}
+
               <button
                 className="mobile-menu-btn"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle mobile menu"
+                aria-label="Toggle menu"
               >
-                <FontAwesomeIcon icon={faBars} />
+                {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
             </div>
+
           </div>
         </div>
       </header>
 
       <div
         className={`mobile-nav-overlay ${isMobileMenuOpen ? "open" : ""}`}
-        onClick={() => setIsMobileMenuOpen(false)}
+        onClick={close}
       />
     </>
   )
