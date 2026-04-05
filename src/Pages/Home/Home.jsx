@@ -103,7 +103,7 @@ const Home = () => {
   return (
     <div className="home">
 
-      {/* ── Hero ── */}
+      {/* ── Hero ── */} 
       <section className="home-hero">
         {SLIDES.map((s, i) => (
           <div

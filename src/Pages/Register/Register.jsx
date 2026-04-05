@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { UtensilsCrossed, User, Mail, Phone, Lock, ArrowRight, Eye, EyeOff } from "lucide-react"
+import { UtensilsCrossed, User, Mail, Phone, Lock, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react"
 import { register } from "../../api/authService"
 import "./Register.css"
 
@@ -10,6 +10,7 @@ const Register = () => {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -19,7 +20,8 @@ const Register = () => {
     setError("")
     try {
       await register(form)
-      navigate("/login")
+      setSuccess(true)
+      setTimeout(() => navigate("/login"), 2500)
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.")
     } finally {
@@ -29,6 +31,18 @@ const Register = () => {
 
   return (
     <div className="auth-page">
+
+      {/* Success Toast */}
+      {success && (
+        <div className="auth-toast-overlay">
+          <div className="auth-toast">
+            <CheckCircle size={48} color="#c8963e" />
+            <h3>Account Created!</h3>
+            <p>Welcome to Savory Haven. Redirecting you to login...</p>
+            <div className="auth-toast-bar" />
+          </div>
+        </div>
+      )}
 
       {/* Left Panel */}
       <div className="auth-left">
