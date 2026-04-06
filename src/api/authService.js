@@ -1,14 +1,17 @@
 // src/api/authService.js
-// Matches: POST /api/auth/register | login | logout | refresh
 import { apiPost } from "./apiClient";
 
 export async function register(userData) {
-  // { username, email, password, phoneNumber }
   return await apiPost("/auth/register", userData);
 }
 
 export async function login(username, password) {
   const data = await apiPost("/auth/login", { username, password });
+
+  if (!data || !data.accessToken) {
+    throw new Error("Invalid response from server. Please try again.");
+  }
+
   localStorage.setItem("accessToken",  data.accessToken);
   localStorage.setItem("refreshToken", data.refreshToken);
   localStorage.setItem("user",         JSON.stringify(data.user));
