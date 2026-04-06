@@ -12,6 +12,7 @@ import Login          from "./Pages/Login/Login"
 import Register       from "./Pages/Register/Register"
 import AdminDashboard from "./Pages/Admin/AdminDashboard"
 import Landing        from "./Pages/Landing/Landing"
+import Profile        from "./Pages/Profile/Profile"
 import AOS from "aos"
 import "aos/dist/aos.css"
 
@@ -23,10 +24,16 @@ function AdminRoute({ children }) {
   return children
 }
 
+// Guard: must be logged in to access /profile
+function PrivateRoute({ children }) {
+  const { user } = useAuth()
+  if (!user) return <Navigate to="/login" replace />
+  return children
+}
+
 function AppRoutes() {
   return (
     <Routes>
-
       <Route path="/"             element={<Landing />} />
       <Route path="/home"         element={<><Header /><Home /></>} />
       <Route path="/menu"         element={<><Header /><Menu /></>} />
@@ -36,6 +43,7 @@ function AppRoutes() {
       <Route path="/login"        element={<Login />} />
       <Route path="/register"     element={<Register />} />
       <Route path="/admin"        element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+      <Route path="/profile"      element={<PrivateRoute><Header /><Profile /></PrivateRoute>} />
       <Route path="*"             element={<Navigate to="/" replace />} />
     </Routes>
   )

@@ -12,11 +12,11 @@ const Header = () => {
   const navigate  = useNavigate()
   const { user, signOut } = useAuth()
 
- const handleLogout = async () => {
-  await logout()
-  signOut()
-  navigate("/login")
-}
+  const handleLogout = async () => {
+    await logout()
+    signOut()
+    navigate("/login")
+  }
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -37,13 +37,18 @@ const Header = () => {
 
   const close = () => setIsMobileMenuOpen(false)
 
+  const getInitials = () => {
+    const name = user?.username || "U"
+    return name.charAt(0).toUpperCase()
+  }
+
   return (
     <>
       <header className={`header ${isScrolled ? "header-scrolled" : ""}`}>
         <div className="container">
           <div className="header-content">
 
-            {/* Logo — goes to /home not / */}
+            {/* Logo */}
             <Link to="/home" className="logo">
               <UtensilsCrossed size={22} color="#c8963e" />
               <span>Savory Haven</span>
@@ -65,6 +70,14 @@ const Header = () => {
                   {user.roles?.includes("Admin") && (
                     <Link to="/admin" className="nav-link admin-link">Admin</Link>
                   )}
+
+                  {/* Profile Avatar — click to go to /profile */}
+                  <Link to="/profile" className="header-avatar" title={`${user.username} — View Profile`}>
+                    <div className="header-avatar-circle">
+                      {getInitials()}
+                    </div>
+                  </Link>
+
                   <button onClick={handleLogout} className="reserve-btn outline-btn">
                     Sign Out
                   </button>
