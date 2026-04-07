@@ -1,8 +1,8 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { User, Mail, Phone, MapPin, Lock, Camera, Save, ArrowLeft, Eye, EyeOff, CheckCircle, UserCircle } from "lucide-react"
+import { User, Mail, Phone, MapPin, Lock, Camera, Save, ArrowLeft, Eye, EyeOff, CheckCircle } from "lucide-react"
 import { useAuth } from "../../context/AuthContext"
-import { apiGet, apiPut } from "../../api/apiClient"
+import { apiPut } from "../../api/apiClient"
 import "./Profile.css"
 
 const Profile = () => {
@@ -34,19 +34,25 @@ const Profile = () => {
     confirm: false,
   })
 
-  const [avatar, setAvatar] = useState(null)
-  const [avatarPreview, setAvatarPreview] = useState(null)
+  const avatarKey = `avatar_${user?.id || user?.username}`
+  const [avatarPreview, setAvatarPreview] = useState(
+    () => localStorage.getItem(avatarKey) || null
+  )
+
+  // Keep preview in sync if user changes
+  useEffect(() => {
+    const stored = localStorage.getItem(avatarKey)
+    setAvatarPreview(stored || null)
+  }, [avatarKey])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
-    setError("")
-    setSuccess("")
+    setError(""); setSuccess("")
   }
 
   const handlePasswordChange = (e) => {
     setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value })
-    setError("")
-    setSuccess("")
+    setError(""); setSuccess("")
   }
 
   const handleAvatarChange = (e) => {
@@ -56,29 +62,28 @@ const Profile = () => {
       setError("Image must be smaller than 2MB.")
       return
     }
-    setAvatar(file)
-    setAvatarPreview(URL.createObjectURL(file))
+    // Convert to base64 and save to localStorage so Header can read it
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result
+      localStorage.setItem(avatarKey, dataUrl)
+      setAvatarPreview(dataUrl)
+      setSuccess("Profile photo updated!")
+    }
+    reader.readAsDataURL(file)
     setError("")
-  }
-
-  // getInitials removed — using icon instead
-const getInitials = () => {
-    const name = user?.username || "U"
-    return name.charAt(0).toUpperCase()
   }
 
   const handleSaveInfo = async (e) => {
     e.preventDefault()
     setSaving(true)
-    setError("")
-    setSuccess("")
+    setError(""); setSuccess("")
     try {
-      const updated = await apiPut("/auth/profile", {
+      await apiPut("/auth/profile", {
         username: form.username,
         phoneNumber: form.phoneNumber,
         address: form.address,
       })
-      // Update local user state
       const updatedUser = { ...user, username: form.username }
       localStorage.setItem("user", JSON.stringify(updatedUser))
       signIn(updatedUser)
@@ -101,8 +106,7 @@ const getInitials = () => {
       return
     }
     setSaving(true)
-    setError("")
-    setSuccess("")
+    setError(""); setSuccess("")
     try {
       await apiPut("/auth/change-password", {
         currentPassword: passwordForm.currentPassword,
@@ -119,7 +123,6 @@ const getInitials = () => {
 
   return (
     <div className="profile-page">
-      {/* Back button */}
       <button className="profile-back-btn" onClick={() => navigate(-1)}>
         <ArrowLeft size={18} />
         Back
@@ -134,7 +137,12 @@ const getInitials = () => {
               {avatarPreview ? (
                 <img src={avatarPreview} alt="Avatar" className="profile-avatar-img" />
               ) : (
-                <div className="profile-avatar-initials"><UserCircle size={64} color="#fff" strokeWidth={1.5} /></div>
+                <div className="profile-avatar-initials">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                    <circle cx="12" cy="8" r="4" fill="white" />
+                    <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none"/>
+                  </svg>
+                </div>
               )}
               <button
                 className="profile-avatar-camera"
@@ -170,7 +178,6 @@ const getInitials = () => {
         {/* Right — Tabs */}
         <div className="profile-main">
 
-          {/* Tabs */}
           <div className="profile-tabs">
             <button
               className={`profile-tab ${activeTab === "info" ? "active" : ""}`}
@@ -186,7 +193,6 @@ const getInitials = () => {
             </button>
           </div>
 
-          {/* Feedback */}
           {success && (
             <div className="profile-alert success">
               <CheckCircle size={18} />
@@ -199,7 +205,6 @@ const getInitials = () => {
             </div>
           )}
 
-          {/* Personal Info Tab */}
           {activeTab === "info" && (
             <form className="profile-form" onSubmit={handleSaveInfo}>
               <div className="profile-form-grid">
@@ -267,14 +272,13 @@ const getInitials = () => {
             </form>
           )}
 
-          {/* Password Tab */}
           {activeTab === "password" && (
             <form className="profile-form" onSubmit={handleSavePassword}>
 
               {[
-                { label: "Current Password", name: "currentPassword", key: "current" },
-                { label: "New Password",     name: "newPassword",     key: "new" },
-                { label: "Confirm New Password", name: "confirmPassword", key: "confirm" },
+                { label: "Current Password",     name: "currentPassword", key: "current" },
+                { label: "New Password",          name: "newPassword",     key: "new" },
+                { label: "Confirm New Password",  name: "confirmPassword", key: "confirm" },
               ].map(({ label, name, key }) => (
                 <div className="profile-field" key={name}>
                   <label>{label}</label>
