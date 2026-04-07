@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { UtensilsCrossed, Menu, X } from "lucide-react"
+import { UtensilsCrossed, Menu, X, UserCircle } from "lucide-react"
 import { useAuth } from "../../context/AuthContext"
 import { logout } from "../../api/authService"
 import "./Header.css"

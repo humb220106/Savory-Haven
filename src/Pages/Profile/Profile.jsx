@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { User, Mail, Phone, MapPin, Lock, Camera, Save, ArrowLeft, Eye, EyeOff, CheckCircle } from "lucide-react"
+import { User, Mail, Phone, MapPin, Lock, Camera, Save, ArrowLeft, Eye, EyeOff, CheckCircle, UserCircle } from "lucide-react"
 import { useAuth } from "../../context/AuthContext"
 import { apiGet, apiPut } from "../../api/apiClient"
 import "./Profile.css"
@@ -61,7 +61,8 @@ const Profile = () => {
     setError("")
   }
 
-  const getInitials = () => {
+  // getInitials removed — using icon instead
+const getInitials = () => {
     const name = user?.username || "U"
     return name.charAt(0).toUpperCase()
   }
@@ -133,7 +134,7 @@ const Profile = () => {
               {avatarPreview ? (
                 <img src={avatarPreview} alt="Avatar" className="profile-avatar-img" />
               ) : (
-                <div className="profile-avatar-initials">{getInitials()}</div>
+                <div className="profile-avatar-initials"><UserCircle size={64} color="#fff" strokeWidth={1.5} /></div>
               )}
               <button
                 className="profile-avatar-camera"

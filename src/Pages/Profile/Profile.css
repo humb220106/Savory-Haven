@@ -308,3 +308,8 @@
   display: inline-block;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Icon avatar override */
+.profile-avatar-initials svg {
+  display: block;
+}
