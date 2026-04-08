@@ -129,10 +129,10 @@ const Login = () => {
             Don't have an account? <Link to="/register">Create one</Link>
           </p>
 
-          <div className="auth-hint">
+          {/* <div className="auth-hint">
             <Lock size={12} color="#bbb" />
             <small>Admin: <strong>Admin</strong> / <strong>Admin123</strong></small>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -210,6 +210,23 @@
   cursor: pointer;
 }
 
+.header-avatar-circle {
+  overflow: hidden;
+}
+
+.header-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.header-avatar-icon {
+  width: 22px;
+  height: 22px;
+}
+
 .header-avatar-circle:hover {
   transform: scale(1.1);
   box-shadow: 0 2px 8px rgba(200, 150, 62, 0.4);
