@@ -205,12 +205,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(200, 150, 62, 0.3);
+  border: 2px solid #c8963e;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-}
-
-.header-avatar-circle {
   overflow: hidden;
 }
 
