@@ -1,0 +1,345 @@
+/* ============================================================
+   SAVORY HAVEN — Global Responsive Fixes
+   Add this as src/responsive.css and import in main.jsx
+   ============================================================ */
+
+/* ── Global box sizing & overflow prevention ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Prevent horizontal scroll on all containers ── */
+.home-container,
+.menu-container,
+.about-page .container,
+.contact-page .container,
+.reservation-page .container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
+@media (max-width: 900px) {
+  .home-about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .home-dishes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .home-slide-content {
+    left: 1rem;
+    right: 1rem;
+    max-width: 100%;
+  }
+  .home-slide-content h1 {
+    font-size: 1.8rem;
+  }
+  .home-slide-content p {
+    font-size: 0.95rem;
+  }
+  .home-hero-btns {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .home-btn-primary,
+  .home-btn-outline {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+  }
+  .home-info-bar {
+    gap: 0.75rem;
+    padding: 0.75rem;
+    font-size: 0.78rem;
+  }
+  .home-info-divider { display: none; }
+  .home-features-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-dishes-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home-testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-about-img-wrap img {
+    height: 260px;
+  }
+  .home-cta-btns {
+    flex-direction: column;
+    align-items: center;
+  }
+  .home-cta-checks {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .home-section { padding: 3rem 0; }
+}
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+@media (max-width: 480px) {
+  .landing-topbar {
+    padding: 1rem;
+  }
+  .landing-title {
+    font-size: 2rem;
+  }
+  .landing-stats {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  .landing-stat-divider {
+    width: 80%;
+    height: 1px;
+  }
+  .landing-buttons {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  .landing-btn-primary,
+  .landing-btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+  .landing-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .landing-info-divider { display: none; }
+}
+
+/* ============================================================
+   MENU PAGE
+   ============================================================ */
+@media (max-width: 900px) {
+  .dishes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-hero { height: 200px; }
+  .menu-hero-content h1 { font-size: 1.6rem; }
+  .menu-hero-content p { font-size: 0.9rem; }
+  .dishes-grid { grid-template-columns: 1fr; }
+  .menu-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .menu-tabs::-webkit-scrollbar { display: none; }
+  .menu-tab { white-space: nowrap; flex-shrink: 0; }
+  .menu-tabs-section .menu-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .menu-search { width: 100%; }
+  .menu-cta h2 { font-size: 1.5rem; }
+  .dish-modal { margin: 0.5rem; max-height: 95vh; }
+  .dish-modal-image { height: 200px; }
+}
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+@media (max-width: 900px) {
+  .about-page .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-page .story-content,
+  .about-page .philosophy-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .about-page .values-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-page .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-page .hero-title { font-size: 2rem; }
+  .about-page .hero-subtitle { font-size: 1rem; }
+  .about-page .section-title { font-size: 1.6rem; }
+  .about-page .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-page .stat-number { font-size: 2rem; }
+  .about-page .timeline::before { left: 20px; }
+  .about-page .timeline-item {
+    flex-direction: row !important;
+    margin-left: 50px;
+  }
+  .about-page .timeline-year {
+    position: absolute;
+    left: -70px;
+    width: 50px;
+    height: 50px;
+    font-size: 0.85rem;
+  }
+  .about-page .timeline-content { margin: 0; padding: 1.25rem; }
+  .about-page .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-page .story-section,
+  .about-page .values-section,
+  .about-page .timeline-section,
+  .about-page .team-section,
+  .about-page .philosophy-section,
+  .about-page .cta-section {
+    padding: 50px 0;
+  }
+}
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+@media (max-width: 900px) {
+  .contact-page .contact-methods-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .contact-page .contact-content {
+    grid-template-columns: 1fr;
+  }
+  .contact-page .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-page .hero-title { font-size: 2rem; }
+  .contact-page .hero-subtitle { font-size: 1rem; }
+  .contact-page .contact-methods-grid { grid-template-columns: 1fr; }
+  .contact-page .contact-method-card { padding: 1.5rem 1rem; }
+  .contact-page .form-row { grid-template-columns: 1fr; }
+  .contact-page .form-container { padding: 1.5rem 1rem; }
+  .contact-page .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact-page .section-title { font-size: 1.6rem; }
+}
+
+/* ============================================================
+   RESERVATION PAGE
+   ============================================================ */
+@media (max-width: 900px) {
+  .reservation-page .reservation-content {
+    grid-template-columns: 1fr;
+  }
+  .reservation-page .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .reservation-page .hero-title { font-size: 2rem; }
+  .reservation-page .hero-subtitle { font-size: 1rem; }
+  .reservation-page .form-row { grid-template-columns: 1fr; }
+  .reservation-page .form-container { padding: 1.5rem 1rem; }
+  .reservation-page .form-title { font-size: 1.6rem; }
+  .reservation-page .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .reservation-page .reservation-form-section { padding: 50px 0; }
+}
+
+/* ============================================================
+   LOGIN & REGISTER PAGES
+   ============================================================ */
+@media (max-width: 600px) {
+  .auth-page { flex-direction: column; }
+  .auth-left { display: none; }
+  .auth-right {
+    width: 100%;
+    padding: 2rem 1.25rem;
+    min-height: 100vh;
+  }
+  .auth-form-wrap { max-width: 100%; }
+}
+
+/* ============================================================
+   PROFILE PAGE
+   ============================================================ */
+@media (max-width: 600px) {
+  .profile-page { padding: 1rem 0.75rem 3rem; }
+  .profile-container { grid-template-columns: 1fr; }
+  .profile-form-grid { grid-template-columns: 1fr; }
+  .profile-main { padding: 1.25rem; }
+  .profile-tab { padding: 0.65rem 1rem; font-size: 0.88rem; }
+  .profile-save-btn { width: 100%; justify-content: center; }
+}
+
+/* ============================================================
+   ADMIN DASHBOARD
+   ============================================================ */
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+}
+
+/* ============================================================
+   GENERAL UTILITY — prevents any element from causing overflow
+   ============================================================ */
+@media (max-width: 600px) {
+  .home-section-header h2,
+  .menu-cta h2,
+  .about-page .section-title,
+  .contact-page .section-title,
+  .reservation-page .form-title {
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Consistent section padding on mobile */
+  section { overflow-x: hidden; }
+
+  /* Make all buttons full width on very small screens */
+  .landing-buttons,
+  .home-cta-btns,
+  .about-page .cta-buttons,
+  .contact-page .cta-buttons,
+  .reservation-page .cta-buttons {
+    padding: 0 1rem;
+  }
+}
