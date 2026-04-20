@@ -5,7 +5,7 @@ import {
   LayoutDashboard, UtensilsCrossed, CalendarDays, Users,
   LogOut, Plus, Search, Edit2, Trash2, Check, X,
   ChefHat, Clock, Flame, Star, TrendingUp, AlertCircle,
-  CheckCircle, XCircle, RefreshCw
+  CheckCircle, XCircle, RefreshCw, Menu
 } from "lucide-react"
 import {
   adminGetStats, adminGetDishes, adminGetCategories,
@@ -53,6 +53,7 @@ const AdminDashboard = () => {
   const [userSearch,   setUserSearch]   = useState("")
   const [loading,      setLoading]      = useState(false)
   const [msg,          setMsg]          = useState({ text: "", type: "success" })
+  const [sidebarOpen,  setSidebarOpen]  = useState(false)
 
   useEffect(() => {
     if (!user?.roles?.includes("Admin")) navigate("/login")
@@ -125,8 +126,24 @@ const AdminDashboard = () => {
   return (
     <div className="adm-layout">
 
+      {/* ── Mobile Top Bar ── */}
+      <div className="adm-mobile-topbar">
+        <div className="adm-mobile-logo">
+          <UtensilsCrossed size={20} color="#c8963e" />
+          Savory Haven
+        </div>
+        <button className="adm-mobile-menu-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <Menu size={22} />
+        </button>
+      </div>
+
+      {/* ── Sidebar Overlay ── */}
+      {sidebarOpen && (
+        <div className="adm-sidebar-overlay open" onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* ── Sidebar ── */}
-      <aside className="adm-sidebar">
+      <aside className={`adm-sidebar ${sidebarOpen ? "open" : ""}` }>
         <div className="adm-logo">
           <div className="adm-logo-icon"><UtensilsCrossed size={22} color="#c8963e" /></div>
           <div>
@@ -140,7 +157,7 @@ const AdminDashboard = () => {
             <button
               key={key}
               className={`adm-nav-btn ${activeTab === key ? "active" : ""}`}
-              onClick={() => setActiveTab(key)}
+              onClick={() => { setActiveTab(key); setSidebarOpen(false); }}
             >
               <Icon size={18} />
               <span>{label}</span>

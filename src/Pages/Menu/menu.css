@@ -253,7 +253,9 @@
   justify-content: space-between; gap: 1rem;
   margin-bottom: 0.75rem;
 }
-.dish-modal-header h2 { font-size: 1.4rem; color: #1a0a00; margin: 0; }
+.dish-modal-header h2 { font-size: 1.4rem; 
+  color: #1a0a00; 
+  margin: 0; }
 .dish-modal-price { font-size: 1.4rem; font-weight: 800; color: #c8963e; white-space: nowrap; }
 .dish-modal-desc { color: #555; line-height: 1.6; margin-bottom: 1.25rem; }
 
